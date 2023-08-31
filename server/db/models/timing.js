@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Timing extends Model {
     /**
@@ -10,20 +8,25 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      this.belongsTo(models.Responsible, { foreignKey: 'responsebleId' });
+      this.belongsTo(models.Event, { foreignKey: 'eventId' });
       // define association here
     }
   }
-  Timing.init({
-    name: DataTypes.STRING,
-    start: DataTypes.TIME,
-    finish: DataTypes.TIME,
-    place: DataTypes.STRING,
-    comment: DataTypes.TEXT,
-    eventId: DataTypes.INTEGER,
-    responsibleId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Timing',
-  });
+  Timing.init(
+    {
+      name: DataTypes.STRING,
+      start: DataTypes.STRING,
+      finish: DataTypes.STRING,
+      place: DataTypes.STRING,
+      comment: DataTypes.TEXT,
+      eventId: DataTypes.INTEGER,
+      responsibleId: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: 'Timing',
+    },
+  );
   return Timing;
 };

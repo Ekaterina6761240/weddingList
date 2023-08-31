@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const sessionParser = require('./middlewares/sessionMiddle');
+const guestRouter = require('./routes/apiGuestRouter');
 
 const PORT = process.env.PORT || 3001;
 
@@ -15,6 +16,7 @@ app.use(cors({ credentials: true, origin: true }));
 
 app.use(sessionParser);
 
+app.use('/api/guest', guestRouter);
 const server = http.createServer(app);
 // server.on('upgrade', upgradeCb);
 // wss.on('connection', connectionCb);
